@@ -3,7 +3,7 @@ CREATE TABLE Department (
     Department_ID NUMBER PRIMARY KEY,
     Name VARCHAR2(100),
     Description VARCHAR2(255),
-    Phone VARCHAR2(22),
+    Phone VARCHAR2(20),
     Email VARCHAR2(100)
 );
 
