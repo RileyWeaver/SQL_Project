@@ -1,0 +1,106 @@
+    This project was done in Oracle Apex, and these are a few queries used to test the database for correct information in real-life healthcare scenarios.                                                                                                                                                     
+
+
+
+                                                                                                                                                              Four queries for the project
+
+Scenario 1:
+
+Write a query that lets you see Dr. John Doe’s appointments. Include the patient's name, contact information, and insurance details so we can verify coverage before the appointment and get all the necessary paperwork.
+
+Scenario 1 Solution:
+
+SELECT
+d.First_Name AS Doctor_First_Name, 
+d.Last_Name AS Doctor_Last_Name, 
+p.Name AS Patient_Name, 
+p.Phone AS Patient_Phone,
+i.Providers_Name AS Insurance_Provider, 
+i.Policy_Number
+FROM
+Doctor d
+JOIN
+Appointment a ON d.Doctor_ID = a.Doctor_ID
+JOIN
+Patient p ON a.Patient_ID = p.Patient_ID
+JOIN
+Insurance i ON p.Patient_ID = i.Patient_ID
+WHERE
+d.Doctor_ID = 1;
+
+Scenario 2:
+
+The hospital management team needs a report showing the volume of prescriptions issued by each doctor. In descending order, including the doctor's first name, last name, specialty, and total patient prescriptions.
+
+Scenario 2 Solution:
+
+SELECT
+d.First_Name, 
+d.Last_Name, 
+d.Specialty, 
+COUNT(p.Prescription_ID) AS Total_Prescriptions
+FROM
+Doctor d
+JOIN
+Prescription p ON d.Doctor_ID = p.Doctor_ID
+GROUP BY
+d.First_Name, d.Last_Name, d.Specialty
+ORDER BY
+Total_Prescriptions DESC;
+
+Scenario 3:
+
+A healthcare administrator wants to create a report that helps track patients' follow-up visits based on their previous visits. The report should be in ascending order to see who's next appointment.
+
+Scenario 3 Solution:
+
+SELECT
+p.Name AS Patient_Name,
+mr.Diagnosis,
+mr.Visit_Date,
+mr.Follow_Up_Date,
+(mr.Follow_Up_Date - mr.Visit_Date) AS Days_Until_Follow_Up
+FROM
+Medical_Record mr
+JOIN
+Patient p ON mr.Patient_ID = p.Patient_ID
+WHERE
+mr.Follow_Up_Required = 'Y'
+ORDER BY
+Days_Until_Follow_Up DESC;
+
+Scenario 4:
+
+We need a detailed overview of patients’ appointments to ensure everything is coordinated correctly. This should include important patient information like prescriptions and insurance information, as well as the doctor's name and specialty. 
+Also include appointment information such as date of appointment, time, and purpose. Order it by the doctor’s first name so doctors can see their appointments clearly. 
+
+Scenario 4 Solution:
+
+SELECT
+a.Appointment_ID,
+a.Appointment_Date,
+a.Time,
+a.Purpose,
+d.First_Name AS Doctor_First_Name,
+d.Last_Name AS Doctor_Last_Name,
+d.Specialty,
+p.Name AS Patient_Name,
+p.Email AS Patient_Email,
+p.Phone AS Patient_Phone,
+i.Providers_Name AS Insurance_Provider,
+i.Policy_Number AS Insurance_Policy_Number,
+pr.Medication,
+pr.Dosage,
+pr.Instructions
+FROM
+Appointment a
+JOIN
+Doctor d ON a.Doctor_ID = d.Doctor_ID
+JOIN
+Patient p ON a.Patient_ID = p.Patient_ID
+JOIN
+Insurance i ON p.Patient_ID = i.Patient_ID
+JOIN
+Prescription pr ON a.Patient_ID = pr.Patient_ID AND a.Doctor_ID = pr.Doctor_ID
+ORDER BY
+d.First_Name;
