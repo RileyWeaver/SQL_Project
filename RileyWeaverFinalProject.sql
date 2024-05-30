@@ -65,34 +65,35 @@ CREATE TABLE Patient (
     Address VARCHAR2(255),
     Phone VARCHAR2(20),
     Email VARCHAR2(100),
-    Gender CHAR(1)
+    Gender CHAR(1),
+    Insurance_ID NUMBER
 );
 
 --Data For Patient --
 
-INSERT INTO Patient (Patient_ID, Name, DoB, Address, Phone, Email, Gender)
-VALUES (1, 'Alice Brown', DATE '1985-04-12', '123 Main St, Anytown, USA', '123-456-7802', 'abrown@example.com', 'F');
+INSERT INTO Patient (Patient_ID, Name, DoB, Address, Phone, Email, Gender, Insurance_ID)
+VALUES (1, 'Alice Brown', DATE '1985-04-12', '123 Main St, Anytown, USA', '123-456-7802', 'abrown@example.com', 'F', 1);
 
-INSERT INTO Patient (Patient_ID, Name, DoB, Address, Phone, Email, Gender)
-VALUES (2, 'Bob Johnson', DATE '1978-08-24', '456 Maple Ave, Othertown, USA', '123-456-7803', 'bjohnson@example.com', 'M');
+INSERT INTO Patient (Patient_ID, Name, DoB, Address, Phone, Email, Gender, Insurance_ID)
+VALUES (2, 'Bob Johnson', DATE '1978-08-24', '456 Maple Ave, Othertown, USA', '123-456-7803', 'bjohnson@example.com', 'M', 2);
 
-INSERT INTO Patient (Patient_ID, Name, DoB, Address, Phone, Email, Gender)
-VALUES (3, 'Claire Newman', DATE '1990-05-14', '789 Oak St, Smalltown, USA', '123-456-7808', 'cnewman@example.com', 'F');
+INSERT INTO Patient (Patient_ID, Name, DoB, Address, Phone, Email, Gender, Insurance_ID)
+VALUES (3, 'Claire Newman', DATE '1990-05-14', '789 Oak St, Smalltown, USA', '123-456-7808', 'cnewman@example.com', 'F', 3);
 
-INSERT INTO Patient (Patient_ID, Name, DoB, Address, Phone, Email, Gender)
-VALUES (4, 'David Smith', DATE '1982-11-16', '321 Pine St, Largetown, USA', '123-456-7809', 'dsmith@example.com', 'M');
+INSERT INTO Patient (Patient_ID, Name, DoB, Address, Phone, Email, Gender, Insurance_ID)
+VALUES (4, 'David Smith', DATE '1982-11-16', '321 Pine St, Largetown, USA', '123-456-7809', 'dsmith@example.com', 'M', 4);
 
-INSERT INTO Patient (Patient_ID, Name, DoB, Address, Phone, Email, Gender)
-VALUES (5, 'Laura Green', DATE '1989-07-23', '789 Elm St, Bigtown, USA', '123-456-7810', 'lgreen@example.com', 'F');
+INSERT INTO Patient (Patient_ID, Name, DoB, Address, Phone, Email, Gender, Insurance_ID)
+VALUES (5, 'Laura Green', DATE '1989-07-23', '789 Elm St, Bigtown, USA', '123-456-7810', 'lgreen@example.com', 'F', 5);
 
-INSERT INTO Patient (Patient_ID, Name, DoB, Address, Phone, Email, Gender)
-VALUES (6, 'Frank Brown', DATE '1976-02-14', '321 Spruce St, Midtown, USA', '123-456-7811', 'fbrown@example.com', 'M');
+INSERT INTO Patient (Patient_ID, Name, DoB, Address, Phone, Email, Gender, Insurance_ID)
+VALUES (6, 'Frank Brown', DATE '1976-02-14', '321 Spruce St, Midtown, USA', '123-456-7811', 'fbrown@example.com', 'M', 6);
 
-INSERT INTO Patient (Patient_ID, Name, DoB, Address, Phone, Email, Gender)
-VALUES (7, 'Jessica Black', DATE '1993-03-05', '456 Oak St, Smalltown, USA', '123-456-7812', 'jblack@example.com', 'F');
+INSERT INTO Patient (Patient_ID, Name, DoB, Address, Phone, Email, Gender, Insurance_ID)
+VALUES (7, 'Jessica Black', DATE '1993-03-05', '456 Oak St, Smalltown, USA', '123-456-7812', 'jblack@example.com', 'F', 7);
 
-INSERT INTO Patient (Patient_ID, Name, DoB, Address, Phone, Email, Gender)
-VALUES (8, 'Gary White', DATE '1985-11-11', '654 Pine St, Yourtown, USA', '123-456-7813', 'gwhite@example.com', 'M');
+INSERT INTO Patient (Patient_ID, Name, DoB, Address, Phone, Email, Gender, Insurance_ID)
+VALUES (8, 'Gary White', DATE '1985-11-11', '654 Pine St, Yourtown, USA', '123-456-7813', 'gwhite@example.com', 'M', 8);
 
 
 
@@ -104,18 +105,17 @@ CREATE TABLE Insurance (
     Coverage_Type VARCHAR2(50),
     Coverage_Details VARCHAR2(255),
     Valid_From DATE,
-    Valid_To DATE
+    Valid_To DATE,
+    Patient_ID NUMBER
 );
 
 --Data For Insurance --
 
 INSERT INTO Insurance (Insurance_ID, Providers_Name, Policy_Number,Coverage_Type, Coverage_Details, Valid_From, Valid_To, Patient_ID) 
- VALUES(1, 'HealthCare Inc.', 'POLICY123', 'Comprehensive', 'Full medical coverage', DATE '2023-01-01', DATE '2023-12-31', 1 
-);
+VALUES(1, 'HealthCare Inc.', 'POLICY123', 'Comprehensive', 'Full medical coverage', DATE '2023-01-01', DATE '2023-12-31', 1);
 
 INSERT INTO Insurance (Insurance_ID, Providers_Name, Policy_Number, Coverage_Type, Coverage_Details, Valid_From, Valid_To, Patient_ID) 
-VALUES (2, 'Wellness Insure', 'POLICY456', 'Basic', 'Basic medical coverage', DATE '2023-02-01', DATE '2024-01-31', 2 
-);
+VALUES (2, 'Wellness Insure', 'POLICY456', 'Basic', 'Basic medical coverage', DATE '2023-02-01', DATE '2024-01-31', 2);
 
 INSERT INTO Insurance (Insurance_ID, Providers_Name, Policy_Number, Coverage_Type, Coverage_Details, Valid_From, Valid_To, Patient_ID)
 VALUES (3, 'Ultimate Cover', 'POLICY789', 'Extended', 'Extended medical coverage', DATE '2023-01-01', DATE '2024-01-01', 3);
@@ -307,6 +307,3 @@ ALTER TABLE Prescription ADD CONSTRAINT fk_Doctor_Prescription
 ALTER TABLE Medical_Record ADD CONSTRAINT fk_Patient_Medical
     FOREIGN KEY (Patient_ID)
     REFERENCES Patient(Patient_ID);
-
-
-
